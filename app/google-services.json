@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "915885520158",
+    "firebase_url": "https://songbanksvr.firebaseio.com",
+    "project_id": "songbanksvr",
+    "storage_bucket": "songbanksvr.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:915885520158:android:ff84b46cfb53d28e",
+        "android_client_info": {
+          "package_name": "com.kirdmt.songbank"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "915885520158-evh0a091jjca5uq3f77bfemi6lqb0918.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuAfyzTvZEIDHXgBD3qh4vSWOeK_wHSaU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

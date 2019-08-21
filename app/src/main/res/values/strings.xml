@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">SongBankSVR</string>
+    <string name="action_settings">Settings</string>
+    <string name="about">Приложение написано для практики разработки на Java. Приложение полностью бесплатное и свободно для распространения. По всем вопросам, пожеланиям, идеям добавлений в новые версии, ошибкам - обращаться по электронной почте LLirikNN@gmail.com.</string>
+    <string name="title_activity_scrolling">ScrollingActivity</string>
+    <string name="large_text">
+        "Material is the metaphor.\n\n"
+    </string>
+    <string name="Search_button">Искать</string>
+    <string name="search">Введите для поиска</string>
+
+    <string name="menu_search">Поиск</string>
+    <string name="menu_back">Главная</string>
+    <string name="menu_info">Информация</string>
+</resources>
