@@ -6,4 +6,13 @@
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="twodp1">1dp</dimen>
+
+    <dimen name="card_img_size">100dp</dimen>
+    <dimen name="scrollView_padding">6dp</dimen>
+    <dimen name="LinerLayout_marginTop">56dp</dimen>
+    <dimen name="song_NestedScrollView_marginTop">156dp</dimen>
+    <dimen name="TextView_SongName_marginTop">56dp</dimen>
+    <dimen name="songActivity_SongTextSize">20dp</dimen>
+    <dimen name="songActivity_SongNameSize">30dp</dimen>
+    <dimen name="main_NestedScrollView_marginTop">56dp</dimen>
 </resources>

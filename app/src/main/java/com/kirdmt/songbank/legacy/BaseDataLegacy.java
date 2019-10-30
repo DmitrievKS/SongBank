@@ -10,7 +10,7 @@ public class BaseDataLegacy {
     private String songName;
     private String songText;
 
-    public BaseData() {
+    public SongData() {
         // empty constructor
     }
 

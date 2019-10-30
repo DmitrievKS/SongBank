@@ -1,26 +1,21 @@
 package com.kirdmt.songbank;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 
 public class SongActivity extends AppCompatActivity {
 
-
-    String songText;
-    String songName;
+    private String songText;
+    private String songName;
+    private TextView songNameTextView, songTextTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,18 +27,13 @@ public class SongActivity extends AppCompatActivity {
         songText = extras.getString("songText");
         songName = extras.getString("songName");
 
-        TextView TestView = (TextView) findViewById(R.id.TextView_field_1);
-        if (songName.length() >= 32) {
-            songName = songName.substring(0, 30) + "...";
-        }
+        setUpToolbar();
 
-        TestView.setText(songName);
-
-
-        TextView TestView2 = (TextView) findViewById(R.id.TextView_field_2);
-        TestView2.setText(songText);
-        TestView2.setMovementMethod(new ScrollingMovementMethod());
-
+        songNameTextView = (TextView) findViewById(R.id.songName_TextView);
+        songNameTextView.setText(songName);
+        songTextTextView = (TextView) findViewById(R.id.songText_TextView);
+        songTextTextView.setText(songText);
+        songTextTextView.setMovementMethod(new ScrollingMovementMethod());
 
     }
 
@@ -51,7 +41,6 @@ public class SongActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.menu_song, menu);
-
         return true;
     }
 
@@ -61,33 +50,18 @@ public class SongActivity extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.menu_back:
-
                 onBackPressed();
                 return true;
 
-            case R.id.menu_info:
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(SongActivity.this);
-                builder.setTitle("О приложении: 1.8 версия.")
-                        .setMessage(getResources().getString(R.string.about))
-                        .setCancelable(true)
-                        .setNegativeButton("Написать письмо",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-
-                                        Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-                                        emailIntent.setData(Uri.parse("mailto:LLirikNN@gmail.com"));
-                                        startActivity(emailIntent);
-                                    }
-                                });
-                AlertDialog alert = builder.create();
-                alert.show();
-
-
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void setUpToolbar() {
+
+        Toolbar toolbar = findViewById(R.id.app_bar);
+        setSupportActionBar(toolbar);
     }
 
 }

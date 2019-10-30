@@ -1,31 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <RelativeLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/app_bar"
+            style="@style/Widget.SongBank.Toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="@string/app_name" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        >
+        android:layout_marginTop="@dimen/main_NestedScrollView_marginTop"
+        android:background="@color/mainBackgroundColor"
+        android:elevation="8dp"
+        android:paddingStart="@dimen/scrollView_padding"
+        android:paddingEnd="@dimen/scrollView_padding">
 
-        <ListView
-            android:id="@+id/item"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="@android:color/transparent"
-            android:dividerHeight="@dimen/twodp1"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:footerDividersEnabled="true"
-            android:headerDividersEnabled="true"
-            tools:listitem="@layout/item" />
+            android:layout_height="match_parent" />
 
-    </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
 
-
-
-</android.support.constraint.ConstraintLayout>
+</FrameLayout>

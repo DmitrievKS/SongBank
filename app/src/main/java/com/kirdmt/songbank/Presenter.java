@@ -1,118 +1,77 @@
 package com.kirdmt.songbank;
 
-import android.util.Log;
-
 import com.google.firebase.database.DataSnapshot;
+import com.kirdmt.songbank.Data.SongData;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Presenter {
 
     private ContractView view;
     private DataModel model = new DataModel();
-    static public ArrayList<BaseData> BaseDataArray = new ArrayList<BaseData>();
-    static final ArrayList<String> SongNames = new ArrayList<String>();
+    static public ArrayList<SongData> songDataArray = new ArrayList<SongData>();
 
     Presenter(ContractView mainView) {
 
         this.view = mainView;
 
-      /*  if(view.getSavedSongList() != null)
-        {
-            view.setSongList(view.getSavedSongList());
-        }
-        else{getDataFromFB();}*/
-
         getDataFromFB();
-
-
     }
 
     public void getDataFromFB() {
-
-
-
-        if (SongNames.size() > 0) {
-            view.setSongList(SongNames);
-
-            return;
-        }
 
         model.getFireBaseData(new ModelCallback() {
             @Override
             public void onCallBack(DataSnapshot snapshot) {
 
-
-                BaseData data;
+                SongData data;
 
                 int index = 1;
 
+                songDataArray.clear();
+
                 for (DataSnapshot snap : snapshot.getChildren()) {
 
-                    data = new BaseData();
+                    data = new SongData();
 
-                    data.setSongName(" " + index + " " + (String) snap.child("songname").getValue());
+                    data.setSongInfo((String) snap.child("songinfo").getValue());
+                    data.setSongName(index + ". " + (String) snap.child("songname").getValue());
                     data.setSongText((String) snap.child("songtext").getValue());
 
-                    BaseDataArray.add(data);
-
-                    if (data.getSongName().length() <= 30) {
-
-                        SongNames.add(data.getSongName());
-
-                    } else {
-
-                        SongNames.add(data.getSongName().substring(0, 30) + "...");
-                    }
-
+                    songDataArray.add(data);
                     index++;
-
                 }
 
-                view.setSongList(SongNames);
-
+                Collections.reverse(songDataArray);
+                view.setSongList(songDataArray);
 
             }
         });
 
     }
 
-    public void getSongData(int value) {
-
-        String songText = BaseDataArray.get(value).getSongText();
-        String songName = BaseDataArray.get(value).getSongName();
-
-        view.openSongActivity(songName, songText);
-
-    }
-
-
     void searchSongs(String string) {
 
-        if (string != null) {
+        if (string != null & string.length() > 0) {
 
             int index = 0;
+            ArrayList<SongData> foundSongData = new ArrayList<SongData>();
 
-            ArrayList<String> foundSongList = new ArrayList<String>();
+            while (index < songDataArray.size()) {
 
-            while (index < SongNames.size()) {
-                if (SongNames.get(index).toLowerCase().contains(string.toLowerCase())) {
-                    foundSongList.add(SongNames.get(index));
-                    //Log.d("TAG", "SongName is: " + SongNames.get(index));
+                if (songDataArray.get(index).getSongName().toLowerCase().contains(string.toLowerCase())) {
+                    foundSongData.add(songDataArray.get(index));
                 }
                 index++;
             }
 
-            if (foundSongList.size() > 0) {
-
-                view.setSongList(foundSongList);
-
+            if (foundSongData.size() > 0) {
+                view.setSongList(foundSongData);
             } else {
-
-                view.showToast("Ничего не найдено");
+                view.showToast(R.string.nothing_found);
             }
         }
-
 
     }
 }

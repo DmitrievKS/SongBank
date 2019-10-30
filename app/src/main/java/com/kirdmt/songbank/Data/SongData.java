@@ -1,16 +1,21 @@
-package com.kirdmt.songbank;
+package com.kirdmt.songbank.Data;
 
 /**
  * Class responsible to hold the name and the message to the user
  * to send to firebase
  */
-public class BaseData {
+public class SongData {
 
 
     private String songName;
     private String songText;
+    private String songInfo;
 
-    public BaseData() {
+    //public SongData(String songName, String songText) {
+    public SongData() {
+
+    /*    this.songName = songName;
+        this.songText = songText;*/
 
     }
 
@@ -30,4 +35,11 @@ public class BaseData {
     }
 
 
+    public String getSongInfo() {
+        return songInfo;
+    }
+
+    public void setSongInfo(String songInfo) {
+        this.songInfo = songInfo;
+    }
 }

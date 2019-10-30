@@ -1,48 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@drawable/backgroundbitmap"
     tools:context=".SongActivity">
 
-
-    <TextView
-        android:id="@+id/TextView_field_1"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/lightGreen"
-        android:gravity="center"
-        android:minHeight="?android:attr/listPreferredItemHeightSmall"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/big_text" />
+        app:elevation="0dp">
 
-    <View
-        android:id="@+id/divider"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/app_bar"
+            style="@style/Widget.SongBank.Toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="@string/app_name" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/white" />
-
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/TextView_field_1"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/backgroundbitmap"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/LinerLayout_marginTop"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/TextView_field_2"
-            android:layout_width="match_parent"
+            android:id="@+id/songName_TextView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:gravity="center"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="20dp" />
+            android:textColor="@color/songTextColor"
+            android:textSize="@dimen/songActivity_SongNameSize" />
 
-    </ScrollView>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="8dp"
+            android:paddingStart="@dimen/scrollView_padding"
+            android:paddingEnd="@dimen/scrollView_padding">
 
+            <TextView
+                android:id="@+id/songText_TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/songTextColor"
+                android:textSize="@dimen/songActivity_SongTextSize" />
 
-</LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+
+</FrameLayout>

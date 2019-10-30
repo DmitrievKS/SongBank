@@ -1,27 +1,27 @@
 package com.kirdmt.songbank;
 
+import androidx.appcompat.app.AlertDialog;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
-import android.util.Log;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuItemCompat;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Toast;
 
+import com.kirdmt.songbank.Data.SongData;
+import com.kirdmt.songbank.adapter.CardAdapter;
 
 import java.util.ArrayList;
 
@@ -32,7 +32,6 @@ import java.util.ArrayList;
 //TODO -3. реализовать константы.
 //TODO -1. Вывод ошибки на экран!
 //TODO 1. internet access cheking;
-
 //TODO 6. realise accords view and tonal changer
 //TODO 7. Songs description
 //TODO 8. improve Pattern
@@ -40,17 +39,16 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements ContractView, SearchView.OnQueryTextListener {
 
+    private CardAdapter adapter;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager layoutManager;
+
     String savedSearchValue = null;
     ArrayList<String> savedSongNamesValue = null;
     boolean submitted = false;
 
-    private ArrayAdapter<String> adapter;
-
     Presenter presenter;
-
-    private ListView listView;
     private SearchView searchView;
-
 
     @Override
     public void onBackPressed() {
@@ -61,18 +59,22 @@ public class MainActivity extends AppCompatActivity implements ContractView, Sea
         } else {
             finish();
         }
-
     }
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.main);
 
+        setUpToolbar();
+
         presenter = new Presenter(this);
+
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true);
+        layoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(layoutManager);
 
     }
 
@@ -82,25 +84,17 @@ public class MainActivity extends AppCompatActivity implements ContractView, Sea
 
         if (searchView.getQuery() != null & searchView.getQuery().toString().length() > 0) {
             savedInstanceState.putString("savedSearchValue", searchView.getQuery().toString());
-
         }
-
         savedInstanceState.putBoolean("submitted", submitted);
-
     }
 
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 
-        //if(savedInstanceState.get("searchViewValue") != null & savedInstanceState.get("searchViewValue").toString().length() > 0)
         if (savedInstanceState.get("savedSearchValue") != null) {
-
             savedSearchValue = savedInstanceState.get("savedSearchValue").toString();
-
             submitted = savedInstanceState.getBoolean("submitted");
-
-            // Log.d("TAG", "savedSearchValue is: " + savedSearchValue);
         }
     }
 
@@ -138,18 +132,20 @@ public class MainActivity extends AppCompatActivity implements ContractView, Sea
 
             case R.id.menu_info:
 
+                String title = getString(R.string.about_app) + " " + getString(R.string.app_version);
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle("О приложении: 1.8 версия.")
+                builder.setTitle(title)
                         .setMessage(getResources().getString(R.string.about))
                         // .setIcon(R.drawable.ic_android_cat)
                         .setCancelable(true)
-                        .setNegativeButton("Написать письмо",
+                        .setNegativeButton(getString(R.string.write_letter),
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        //  dialog.cancel();
+                                        dialog.cancel();
 
                                         Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-                                        emailIntent.setData(Uri.parse("mailto:LLirikNN@gmail.com"));
+                                        emailIntent.setData(Uri.parse(getString(R.string.mail_to)));
                                         startActivity(emailIntent);
                                     }
                                 });
@@ -161,15 +157,15 @@ public class MainActivity extends AppCompatActivity implements ContractView, Sea
             default:
                 return super.onOptionsItemSelected(item);
         }
+
+
     }
 
     @Override
     public boolean onQueryTextSubmit(String text) {
 
         submitted = true;
-
         presenter.searchSongs(text);
-
         return false;
     }
 
@@ -178,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements ContractView, Sea
         return false;
     }
 
-    @Override
+    /*@Override
     public void openSongActivity(String songName, String songText) {
 
         Intent someSongActivity = new Intent(getApplicationContext(), SongActivity.class);
@@ -188,66 +184,41 @@ public class MainActivity extends AppCompatActivity implements ContractView, Sea
 
         startActivity(someSongActivity);
 
-    }
+    }*/
 
-    @Override
+    /*@Override
     public Context getContext() {
         return this.getApplicationContext();
+    }*/
+
+    @Override
+    public void showToast(int messageId) {
+
+        Toast.makeText(MainActivity.this, getString(messageId), Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void showToast(String message) {
+    public void setSongList(ArrayList<SongData> songData) {
 
-        Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
-    }
+        adapter = new CardAdapter(songData, getApplicationContext());
+        recyclerView.setAdapter(null);
+        recyclerView.setAdapter(adapter);
 
-    @Override
-    public void setSongList(ArrayList<String> songNames) {
-
-        if (adapter != null) {
-            adapter = null;
-            listView = null;
-
-        }
-
-        adapter = new ArrayAdapter<String>(this, R.layout.list_my_text, songNames);
-
-        listView = (ListView) findViewById(R.id.item);
-        listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View itemClicked, int position,
-                                    long id) {
-
-                String value = (String) parent.getItemAtPosition(position);
-                value = value.substring(1);
-                value = value.substring(0, value.indexOf(" "));
-                int realPosition = Integer.parseInt(value) - 1;
-
-                presenter.getSongData(realPosition);
-
-            }
-        });
-
-    }
-
-    @Override
-    public ArrayList<String> getSavedSongList() {
-        return savedSongNamesValue;
     }
 
     private void backButtonFunction() {
 
         submitted = false;
-
         searchView.setQuery("", false);
         searchView.clearFocus();
-        adapter.clear();
 
+        recyclerView.setAdapter(null);
         presenter.getDataFromFB();
     }
 
+    private void setUpToolbar() {
+        Toolbar toolbar = findViewById(R.id.app_bar);
+        setSupportActionBar(toolbar);
+    }
+
 }
-
-

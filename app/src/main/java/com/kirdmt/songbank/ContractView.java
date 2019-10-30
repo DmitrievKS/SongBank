@@ -1,7 +1,8 @@
 package com.kirdmt.songbank;
 
 import android.content.Context;
-import android.widget.ArrayAdapter;
+
+import com.kirdmt.songbank.Data.SongData;
 
 import java.util.ArrayList;
 
@@ -13,14 +14,8 @@ public interface ContractView {
 
     void startMain();*/
 
-    void openSongActivity(String songName, String songText);
+    void showToast(int messageId);
 
-    Context getContext();
+    void setSongList(ArrayList<SongData> songData);
 
-    void showToast(String message);
-
-    void setSongList(ArrayList<String> songNames);
-
-    ArrayList<String> getSavedSongList();
-
-  }
+}

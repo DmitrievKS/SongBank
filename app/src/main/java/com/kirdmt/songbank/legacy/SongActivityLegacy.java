@@ -1,17 +1,6 @@
 package com.kirdmt.songbank.legacy;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.text.method.ScrollingMovementMethod;
-import android.view.View;
-import android.widget.TextView;
-
-import com.kirdmt.songbank.R;
+import androidx.appcompat.app.AppCompatActivity;
 
 
 public class SongActivityLegacy extends AppCompatActivity {

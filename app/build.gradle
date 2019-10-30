@@ -2,25 +2,17 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
 android {
-  /*  signingConfigs {
-        config {
-            keyAlias 'DMT'
-            keyPassword 'Vremyamary!022398'
-            storeFile file('C:/Kirill/dmt.jks')
-            storePassword 'Vremyamary!022398'
-        }
-    }*/
+
     compileSdkVersion 28
-    //compileSdkVersion 28
-   // buildToolsVersion '28.0.3'
+
     defaultConfig {
         applicationId "com.kirdmt.songbank"
         minSdkVersion 19
         //targetSdkVersion 25
         targetSdkVersion 28
-        versionName '1.8'
+        versionName '1.9'
         //testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        versionCode 9
+        versionCode 10
     }
     buildTypes {
         release {
@@ -39,14 +31,19 @@ android {
 dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:27.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation 'com.android.support:design:27.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'com.google.android.material:material:1.1.0-alpha09'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     implementation 'com.google.firebase:firebase-database:16.0.1'
     implementation 'com.google.firebase:firebase-core:16.0.1'
 
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation 'com.android.support:cardview-v7:28.0.0'
+
+    implementation 'com.android.support:design:28.0.0'
+
 }
-//apply plugin: 'com.google.gms.google-services'
+
