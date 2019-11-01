@@ -65,7 +65,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         TextView songName = (TextView) cardView.findViewById(R.id.song_name_text);
         TextView songInfo = (TextView) cardView.findViewById(R.id.song_info_text);
 
-        if (songInfoStr.length() > 101) {
+        if (songInfoStr != null && songInfoStr.length() > 101) {
             String bufSongInfoStr;
             bufSongInfoStr = songInfoStr.substring(0, 99);
             songInfoStr = bufSongInfoStr;

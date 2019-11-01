@@ -29,12 +29,13 @@ import java.util.ArrayList;
 //in the future versions:
 
 
-//TODO -3. реализовать константы.
-//TODO -1. Вывод ошибки на экран!
-//TODO 1. internet access cheking;
+//TODO -3. реализовать константы. ??
+//TODO -1. Вывод ошибки на экран! ??
+//TODO 1. internet access cheking; ??
 //TODO 6. realise accords view and tonal changer
-//TODO 7. Songs description
+//TODO 7. Songs description - compleate. Add data to fireBase.
 //TODO 8. improve Pattern
+//TODO 9. Add category for songs. (checkbox?)
 
 
 public class MainActivity extends AppCompatActivity implements ContractView, SearchView.OnQueryTextListener {
